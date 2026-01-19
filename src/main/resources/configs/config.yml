@@ -1,2 +1,3 @@
-# test
-hateCats: False
+# Language
+general:
+  language: en_EN
