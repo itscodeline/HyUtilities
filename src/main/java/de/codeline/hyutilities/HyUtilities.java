@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * This class serves as the entrypoint for your plugin. Use the setup method to register into game registries or add
@@ -26,6 +27,9 @@ public class HyUtilities extends JavaPlugin {
 
     @Nonnull
     public static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+
+    @Nonnull
+    private final static Set<String> LANGUAGES = Set.of("en_US", "de_DE");
 
     private ConfigurationHolder<PluginConfig> mainConfigHolder;
 
@@ -46,7 +50,7 @@ public class HyUtilities extends JavaPlugin {
 
         reloadConfig();
 
-        LOGGER.atInfo().log("Cats: " + getMainConfig().hateCats);
+        LOGGER.atInfo().log("Cats: " + getMainConfig().general.language);
 
         this.getCommandRegistry().registerCommand(new ExampleCommand(this.getName(), this.getManifest().getVersion().toString()));
     }
@@ -65,12 +69,22 @@ public class HyUtilities extends JavaPlugin {
         boolean rootFolderCreated = rootPath.toFile().mkdirs();
 
         Path generalConfigPath = rootPath.resolve("config.yml");
-        if (!Files.exists(generalConfigPath)) {
-            InputStream stream = getClassLoader().getResourceAsStream("configs/config.yml");
-            if (stream == null) throw new IOException("DefaultConfig doesn't exist.");
-            Files.write(generalConfigPath, stream.readAllBytes(), StandardOpenOption.CREATE_NEW);
-            stream.close();
+        copyDefaultConfig(generalConfigPath, "configs/config.yml");
+
+        Path langFolderPath = rootPath.resolve("lang");
+        boolean langFolderCreated = langFolderPath.toFile().mkdirs();
+        if (!langFolderCreated) return;
+        for (String lang : LANGUAGES) {
+            copyDefaultConfig(langFolderPath.resolve(lang + ".yml"), "lang/%s.yml".formatted(lang));
         }
+    }
+
+    public void copyDefaultConfig(Path path, String defaultPath) throws IOException {
+        if (Files.exists(path)) return;
+        InputStream stream = getClassLoader().getResourceAsStream(defaultPath);
+        if (stream == null) throw new IOException("DefaultConfig doesn't exist.");
+        Files.write(path, stream.readAllBytes(), StandardOpenOption.CREATE_NEW);
+        stream.close();
     }
 
     public PluginConfig getMainConfig() {
