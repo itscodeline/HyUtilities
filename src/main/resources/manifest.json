@@ -1,0 +1,22 @@
+{
+    "Group": "codeline",
+    "Name": "HyUtilities",
+    "Version": "1.0.0",
+    "Description": "Advanced utility plugin providing essential server administration and gameplay related tools!",
+    "Authors": [
+        {
+            "Name": "codeline"
+        }
+    ],
+    "Website": "itscodeline.net",
+    "ServerVersion": "*",
+    "Dependencies": {
+        
+    },
+    "OptionalDependencies": {
+        
+    },
+    "DisabledByDefault": false,
+    "Main": "de.codeline.hyutilities.HyUtilities",
+    "IncludesAssetPack": true
+}
