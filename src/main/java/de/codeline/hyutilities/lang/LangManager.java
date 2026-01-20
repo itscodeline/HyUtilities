@@ -30,7 +30,7 @@ public class LangManager {
 
     public void reload(String language) {
         ConfigSection section = this.loadFile(language);
-        if (section == null) throw new RuntimeException("There was an error loading the language file for language " + language + "!");
+        if (section == null) throw new RuntimeException("There was an error loading the language file for language %s!".formatted(language));
         translations.clear();
         for (String key : section.getKeys()) translations.put(key, Objects.requireNonNull(section.get(key)).toString());
     }

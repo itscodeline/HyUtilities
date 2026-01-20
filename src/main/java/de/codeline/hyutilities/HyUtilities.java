@@ -65,12 +65,12 @@ public class HyUtilities extends JavaPlugin {
 
     @Override
     protected void start() {
-        LOGGER.atInfo().log("The plugin " + this.getName() + "was started!");
+        LOGGER.atInfo().log("The plugin %s was started!".formatted(this.getName()));
     }
 
     @Override
     protected void shutdown() {
-        LOGGER.atInfo().log("The plugin " + this.getName() + "is shutting down!");
+        LOGGER.atInfo().log("The plugin %s is shutting down!".formatted(this.getName()));
     }
 
     private void createConfigFiles(Path rootPath) throws IOException {
