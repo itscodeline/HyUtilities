@@ -5,6 +5,10 @@ import com.membercat.issuelib.api.loader.ConfigLoadable;
 
 public class PluginConfig implements ConfigLoadable {
 
-    public @Property boolean hateCats = false;
+    public @Property GeneralMainConfig general;
+
+    public static class GeneralMainConfig implements ConfigLoadable {
+        public @Property() String language = "en_US";
+    }
 
 }
