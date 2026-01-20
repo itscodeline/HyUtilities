@@ -6,6 +6,9 @@ import com.membercat.issuelib.api.issue.IssueNamespace;
 import de.codeline.hyutilities.HyUtilities;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Custom IssueNamespace, used to log IssueLib issues via Hytale's logger
+ */
 public class Namespace extends IssueNamespace {
 
     public static final Namespace INSTANCE = new Namespace(HyUtilities.LOGGER);

@@ -21,8 +21,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * This class serves as the entrypoint for your plugin. Use the setup method to register into game registries or add
- * event listeners.
+ * Main class of HyUtilities containing the starting point of the plugin
+ * @author codeline
  */
 public class HyUtilities extends JavaPlugin {
 
@@ -73,6 +73,11 @@ public class HyUtilities extends JavaPlugin {
         LOGGER.atInfo().log("The plugin %s is shutting down!".formatted(this.getName()));
     }
 
+    /**
+     * Creates config files used by the plugin
+     * @param rootPath Plugin specific config folder found, usually found in 'mods'
+     * @throws IOException Exception thrown if creation of config files or folders causes issues
+     */
     private void createConfigFiles(Path rootPath) throws IOException {
         boolean rootFolderCreated = rootPath.toFile().mkdirs();
 
@@ -87,6 +92,12 @@ public class HyUtilities extends JavaPlugin {
         }
     }
 
+    /**
+     * Copies the plugin internal default config files, usually copied to 'mods/user_pluginName'
+     * @param path Path for the config file to be copied to
+     * @param defaultPath Relative internal path to the config file to be copied
+     * @throws IOException Exception thrown if copying of default config files causes issues
+     */
     public void copyDefaultConfig(Path path, String defaultPath) throws IOException {
         if (Files.exists(path)) return;
         InputStream stream = getClassLoader().getResourceAsStream(defaultPath);
@@ -95,10 +106,25 @@ public class HyUtilities extends JavaPlugin {
         stream.close();
     }
 
+    /**
+     * Getter to receive PluginConfig object for the main config
+     * @return {@link PluginConfig} object of plugin's main config (typically 'config.yml')
+     */
     public PluginConfig getMainConfig() {
         return Objects.requireNonNull(mainConfigHolder.get());
     }
 
+    /**
+     * Getter to receive LangManager object for language management
+     * @return {@link LangManager} object managing plugin's multi-language functionality
+     */
+    public LangManager getLangManager() {
+        return Objects.requireNonNull(langManager);
+    }
+
+    /**
+     * Reloads the plugins config files
+     */
     public void reloadConfig() {
         try {
             mainConfigHolder.load(getDataDirectory().resolve("config.yml").toFile(), IssueLib.snakeYamlLoader());

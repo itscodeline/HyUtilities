@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Class used to manage the plugin's multi-language functionality
+ */
 public class LangManager {
 
     private final Map<String, String> translations;
@@ -28,6 +31,10 @@ public class LangManager {
          this.langFolderPath = langFolderPath;
     }
 
+    /**
+     * Reload the language files contents
+     * @param language Language key of the language that should be reloaded and loaded as the current language
+     */
     public void reload(String language) {
         ConfigSection section = this.loadFile(language);
         if (section == null) throw new RuntimeException("There was an error loading the language file for language %s!".formatted(language));
@@ -35,6 +42,11 @@ public class LangManager {
         for (String key : section.getKeys()) translations.put(key, Objects.requireNonNull(section.get(key)).toString());
     }
 
+    /**
+     * Loads the contents of the specified language file into a {@link ConfigSection} object
+     * @param language Language key of the language that will be loaded into the {@link ConfigSection} object
+     * @return Returns either {@link ConfigSection} object containing the language or null, if language is not found
+     */
     public ConfigSection loadFile(String language) {
         File langFile = langFolderPath.resolve(language + ".yml").toFile();
         if (!langFile.exists()) return null;
@@ -47,6 +59,11 @@ public class LangManager {
         return rootElement instanceof ConfigSection section ? section : null;
     }
 
+    /**
+     * Method used to receive a specific language key's value for the currently loaded language
+     * @param key Language key defined in the loaded language file
+     * @return Language key's value or language key itself it language key's value couldn't be found
+     */
     public String get(String key) {
         return translations.getOrDefault(key, key); // returns key if translation not found
     }
