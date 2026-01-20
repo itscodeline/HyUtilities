@@ -9,6 +9,7 @@ import com.membercat.issuelib.api.config.InitializationException;
 import com.membercat.issuelib.api.config.IssuesFoundException;
 import de.codeline.hyutilities.config.Namespace;
 import de.codeline.hyutilities.config.PluginConfig;
+import de.codeline.hyutilities.lang.LangManager;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -33,6 +34,8 @@ public class HyUtilities extends JavaPlugin {
 
     private ConfigurationHolder<PluginConfig> mainConfigHolder;
 
+    private LangManager langManager;
+
     public HyUtilities(@Nonnull JavaPluginInit init) {
         super(init);
     }
@@ -48,9 +51,14 @@ public class HyUtilities extends JavaPlugin {
             throw new RuntimeException(e);
         }
 
+        langManager = new LangManager(IssueLib.snakeYamlLoader(), getDataDirectory().resolve("lang"));
+        langManager.reload("en_US");
+
         reloadConfig();
 
-        LOGGER.atInfo().log("Cats: " + getMainConfig().general.language);
+        langManager.reload(getMainConfig().general.language);
+
+        LOGGER.atInfo().log("Cats: " + langManager.get("test"));
 
         this.getCommandRegistry().registerCommand(new ExampleCommand(this.getName(), this.getManifest().getVersion().toString()));
     }
