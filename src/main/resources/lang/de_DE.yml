@@ -16,8 +16,11 @@
 # ------- Commands -------
 # ------------------------
 
+# HyUtilities Reload Subcommand (for all) (-)
+general.hyUtilities.reload.all: All the configurations have been reloaded successfully.
+
 # HyUtilities Reload Subcommand (for config) (-)
-general.hyUtilities.reload.config: Das Plugin wurde erfolgreich neu geladen.
+general.hyUtilities.reload.config: The plugin's config was successfully reloaded.
 
 # HyUtilities Reload Subcommand (for lang) (-)
 general.hyUtilities.reload.lang: The language config was successfully reloaded.
