@@ -63,7 +63,7 @@ public class HyUtilities extends JavaPlugin {
         LOGGER.atInfo().log("Cats: " + langManager.get("test"));
 
         this.getCommandRegistry().registerCommand(new ExampleCommand(this.getName(), this.getManifest().getVersion().toString()));
-        this.getCommandRegistry().registerCommand(new GamemodeCommand(this));
+        if (getMainConfig().features.gamemodeCommandEnabled) this.getCommandRegistry().registerCommand(new GamemodeCommand(this));
         this.getCommandRegistry().registerCommand(new HyUtilitiesCommand(this));
     }
 
