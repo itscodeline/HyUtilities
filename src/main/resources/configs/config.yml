@@ -9,3 +9,6 @@
 
 general:
   language: de_DE
+
+features:
+  gamemodeCommandEnabled: true
