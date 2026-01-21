@@ -9,9 +9,14 @@ import com.membercat.issuelib.api.loader.ConfigLoadable;
 public class PluginConfig implements ConfigLoadable {
 
     public @Property GeneralMainConfig general;
+    public @Property EnabledFeaturesConfig features;
 
     public static class GeneralMainConfig implements ConfigLoadable {
-        public @Property() String language = "en_US";
+        public @Property String language = "en_US";
+    }
+
+    public static class EnabledFeaturesConfig implements ConfigLoadable {
+        public @Property boolean gamemodeCommandEnabled = true;
     }
 
 }
