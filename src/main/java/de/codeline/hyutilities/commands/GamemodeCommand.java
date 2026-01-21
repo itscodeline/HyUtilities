@@ -31,6 +31,8 @@ public class GamemodeCommand extends AbstractPlayerCommand {
         super("gamemode", "Customizable command used to switch the player's gamemode.", false);
         this.langManager = hyUtilities.getLangManager();
         this.mainConfig = hyUtilities.getMainConfig();
+        this.addAliases("gm");
+        this.addUsageVariant(this);
     }
 
     @Override
