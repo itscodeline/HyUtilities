@@ -29,6 +29,6 @@ Our mod (plugin) **can be found at** the following links: <br>
 ---
 
 ## Credits
-This project uses the library **IssueLib** provided to me by my friend @codingcat.
+This project uses the library **IssueLib** provided to me by my friend @codingcat2468.
 
 ---
