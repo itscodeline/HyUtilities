@@ -1,1 +1,32 @@
-test: Katzen sind schlechte Tiere
+#
+#    ,--.                                                            ,------.  ,------.      ,------.  ,------.
+#    |  |    ,--,--.,--,--,  ,---. ,--.,--. ,--,--. ,---.  ,---.     |  .-.  \ |  .---'      |  .-.  \ |  .---'
+#    |  |   ' ,-.  ||      \| .-. ||  ||  |' ,-.  || .-. || .-. :    |  |  \  :|  `--,       |  |  \  :|  `--,
+#    |  '--.\ '-'  ||  ||  |' '-' ''  ''  '\ '-'  |' '-' '\   --.    |  '--'  /|  `---.,----.|  '--'  /|  `---.
+#    `-----' `--`--'`--''--'.`-  /  `----'  `--`--'.`-  /  `----'    `-------' `------''----'`-------' `------'
+#                           `---'                  `---'
+#
+
+# -----------------------------------------------------------------------
+# ---- Information: Use %s in the text to insert the position of the ----
+# --------- according placeholders defined over each property. ----------
+# -----------------------------------------------------------------------
+
+# ------------------------
+# ------- Commands -------
+# ------------------------
+
+# HyUtilities Reload Subcommand (for config) (-)
+general.hyUtilities.reload.config: Das Plugin wurde erfolgreich neu geladen.
+
+# HyUtilities Reload Subcommand (for lang) (-)
+general.hyUtilities.reload.lang: The language config was successfully reloaded.
+
+# HyUtilities Reload Subcommand (failed) (-)
+general.hyUtilities.reload.notFound: The specified 'reloadable' wasn't found.
+
+# Gamemode Change (self) (%s=gamemode)
+general.gamemodeChangedSelf: Your gamemode has been changed to %s!
+
+# Gamemode Change (other) (%s=player; %s=gamemode)
+general.gamemodeChangedOther: The gamemode of %s was changed to %s!
