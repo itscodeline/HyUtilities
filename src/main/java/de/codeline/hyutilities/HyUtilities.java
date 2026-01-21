@@ -1,12 +1,15 @@
 package de.codeline.hyutilities;
 
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.membercat.issuelib.IssueLib;
 import com.membercat.issuelib.api.config.ConfigurationHolder;
 import com.membercat.issuelib.api.config.InitializationException;
 import com.membercat.issuelib.api.config.IssuesFoundException;
+import com.membercat.issuelib.api.internationalization.IssueListPrinter;
 import de.codeline.hyutilities.commands.GamemodeCommand;
 import de.codeline.hyutilities.commands.HyUtilitiesCommand;
 import de.codeline.hyutilities.config.Namespace;
@@ -14,6 +17,7 @@ import de.codeline.hyutilities.config.PluginConfig;
 import de.codeline.hyutilities.lang.LangManager;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -36,7 +40,7 @@ public class HyUtilities extends JavaPlugin {
 
     private ConfigurationHolder<PluginConfig> mainConfigHolder;
 
-    private LangManager langManager;
+    private static LangManager langManager;
 
     public HyUtilities(@Nonnull JavaPluginInit init) {
         super(init);
@@ -56,7 +60,7 @@ public class HyUtilities extends JavaPlugin {
         langManager = new LangManager(IssueLib.snakeYamlLoader(), getDataDirectory().resolve("lang"));
         langManager.reload("en_US");
 
-        reloadConfig();
+        reloadConfig(null);
 
         langManager.reload(getMainConfig().general.language);
 
@@ -82,7 +86,7 @@ public class HyUtilities extends JavaPlugin {
      * @param rootPath Plugin specific config folder found, usually found in 'mods'
      * @throws IOException Exception thrown if creation of config files or folders causes issues
      */
-    private void createConfigFiles(Path rootPath) throws IOException {
+    public void createConfigFiles(Path rootPath) throws IOException {
         boolean rootFolderCreated = rootPath.toFile().mkdirs();
 
         Path generalConfigPath = rootPath.resolve("config.yml");
@@ -90,7 +94,7 @@ public class HyUtilities extends JavaPlugin {
 
         Path langFolderPath = rootPath.resolve("lang");
         boolean langFolderCreated = langFolderPath.toFile().mkdirs();
-        if (!langFolderCreated) return;
+        if (!langFolderCreated && langFolderPath.resolve("en_US.yml").toFile().exists()) return;
         for (String lang : LANGUAGES) {
             copyDefaultConfig(langFolderPath.resolve(lang + ".yml"), "lang/%s.yml".formatted(lang));
         }
@@ -122,18 +126,20 @@ public class HyUtilities extends JavaPlugin {
      * Getter to receive LangManager object for language management
      * @return {@link LangManager} object managing plugin's multi-language functionality
      */
-    public LangManager getLangManager() {
+    public static LangManager getLangManager() {
         return Objects.requireNonNull(langManager);
     }
 
     /**
      * Reloads the plugins config files
      */
-    public void reloadConfig() {
+    public void reloadConfig(@Nullable CommandContext commandContext) {
         try {
             mainConfigHolder.load(getDataDirectory().resolve("config.yml").toFile(), IssueLib.snakeYamlLoader());
         } catch (IssuesFoundException e) {
-            e.printToConsole(Namespace.INSTANCE);
+            IssueListPrinter<?> issueListPrinter = Namespace.INSTANCE.getOutputEnvironment().getIssueListPrinter();
+            if (commandContext != null) commandContext.sendMessage(Message.raw(issueListPrinter.create(e).asString()));
+            else e.printToConsole(Namespace.INSTANCE);
         }
     }
 
