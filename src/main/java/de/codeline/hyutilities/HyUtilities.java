@@ -7,6 +7,8 @@ import com.membercat.issuelib.IssueLib;
 import com.membercat.issuelib.api.config.ConfigurationHolder;
 import com.membercat.issuelib.api.config.InitializationException;
 import com.membercat.issuelib.api.config.IssuesFoundException;
+import de.codeline.hyutilities.commands.GamemodeCommand;
+import de.codeline.hyutilities.commands.HyUtilitiesCommand;
 import de.codeline.hyutilities.config.Namespace;
 import de.codeline.hyutilities.config.PluginConfig;
 import de.codeline.hyutilities.lang.LangManager;
@@ -61,6 +63,8 @@ public class HyUtilities extends JavaPlugin {
         LOGGER.atInfo().log("Cats: " + langManager.get("test"));
 
         this.getCommandRegistry().registerCommand(new ExampleCommand(this.getName(), this.getManifest().getVersion().toString()));
+        this.getCommandRegistry().registerCommand(new GamemodeCommand(this));
+        this.getCommandRegistry().registerCommand(new HyUtilitiesCommand(this));
     }
 
     @Override
