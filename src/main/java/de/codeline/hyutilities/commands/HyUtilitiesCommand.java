@@ -28,6 +28,7 @@ public class HyUtilitiesCommand extends AbstractPlayerCommand {
         this.mainConfig = hyUtilities.getMainConfig();
         this.hyUtilities = hyUtilities;
         this.addSubCommand(new ReloadCommand(hyUtilities));
+        this.addUsageVariant(this);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class HyUtilitiesCommand extends AbstractPlayerCommand {
 
     public static class ReloadCommand extends AbstractPlayerCommand {
 
-        OptionalArg<String> reloadableArg = this.withOptionalArg("reloadable", "Specify what should be reloaded (Options: 'config', 'lang')", ArgTypes.STRING);
+        RequiredArg<String> reloadableArg = this.withRequiredArg("reloadable", "Specify what should be reloaded (Options: 'config', 'lang')", ArgTypes.STRING);
         private final LangManager langManager;
         private final HyUtilities hyUtilities;
 
