@@ -40,12 +40,10 @@ public class GamemodeCommand extends AbstractPlayerCommand {
         PlayerRef playerReference;
         if (playerArg.get(commandContext) == null) {
             playerReference = playerRef;
-            playerReference.sendMessage(Message.raw(langManager.get("general.gamemodeChangedSelf")
-                    .formatted(gamemode.toString())));
+            playerReference.sendMessage(langManager.get("general.gamemodeChangedSelf", gamemode));
         } else {
             playerReference = playerArg.get(commandContext);
-            playerReference.sendMessage(Message.raw(langManager.get("general.gamemodeChangedOther")
-                    .formatted(playerReference.getUsername(), gamemode)));
+            playerReference.sendMessage(langManager.get("general.gamemodeChangedOther", playerReference.getUsername(), gamemode));
         }
         Player.setGameMode(Objects.requireNonNull(playerReference.getReference()), gamemode, store);
     }

@@ -62,18 +62,18 @@ public class HyUtilitiesCommand extends AbstractCommandCollection {
                 case ReloadType.ALL:
                     hyUtilities.reloadConfig(commandContext);
                     langManager.reload(hyUtilities.getMainConfig().general.language);
-                    commandContext.sendMessage(Message.raw(langManager.get("general.hyUtilities.reload.all")));
+                    commandContext.sendMessage(langManager.get("general.hyUtilities.reload.all"));
                     break;
                 case ReloadType.CONFIG:
                     hyUtilities.reloadConfig(commandContext);
-                    commandContext.sendMessage(Message.raw(langManager.get("general.hyUtilities.reload.config")));
+                    commandContext.sendMessage(langManager.get("general.hyUtilities.reload.config"));
                     break;
                 case ReloadType.LANG:
                     langManager.reload(hyUtilities.getMainConfig().general.language);
-                    commandContext.sendMessage(Message.raw(langManager.get("general.hyUtilities.reload.lang")));
+                    commandContext.sendMessage(langManager.get("general.hyUtilities.reload.lang"));
                     break;
                 default:
-                    commandContext.sendMessage(Message.raw(langManager.get("general.hyUtilities.reload.notFound")));
+                    commandContext.sendMessage(langManager.get("general.hyUtilities.reload.notFound"));
                     break;
             }
             return CompletableFuture.completedFuture(null);
