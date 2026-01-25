@@ -11,12 +11,12 @@
     "Website": "itscodeline.net",
     "ServerVersion": "*",
     "Dependencies": {
-        
+        "Zoltus:TinyMessage": "*"
     },
     "OptionalDependencies": {
         
     },
     "DisabledByDefault": false,
     "Main": "de.codeline.hyutilities.HyUtilities",
-    "IncludesAssetPack": true
+    "IncludesAssetPack": false
 }
