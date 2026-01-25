@@ -1,11 +1,13 @@
 package de.codeline.hyutilities.lang;
 
 import com.google.gson.JsonArray;
+import com.hypixel.hytale.server.core.Message;
 import com.membercat.issuelib.api.wrapper.ConfigElement;
 import com.membercat.issuelib.api.wrapper.ConfigLoader;
 import com.membercat.issuelib.api.wrapper.ConfigSection;
 import com.membercat.issuelib.api.wrapper.exception.ConfigLoadException;
 import de.codeline.hyutilities.HyUtilities;
+import fi.sulku.hytale.TinyMsg;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -64,8 +66,14 @@ public class LangManager {
      * @param key Language key defined in the loaded language file
      * @return Language key's value or language key itself it language key's value couldn't be found
      */
-    public String get(String key) {
-        return translations.getOrDefault(key, key); // returns key if translation not found
+    public Message get(String key, Object... placeholderContent) {
+        return TinyMsg.parse(translations.getOrDefault(key, key)
+                .formatted(placeholderContent)
+                .replace("<prefix>", translations.getOrDefault("general.prefix", "<prefix>"))); // returns key if translation not found
+    }
+
+    public String getString(String key) {
+        return get(key).toString();
     }
 
 }
